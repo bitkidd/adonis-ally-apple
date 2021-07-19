@@ -1,4 +1,4 @@
-# Adonis Ally - Apple Driver
+# Adonis Ally - Apple Sign In Driver
 
 > adonis, adonis-ally, apple
 

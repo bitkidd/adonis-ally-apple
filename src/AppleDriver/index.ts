@@ -3,7 +3,7 @@
 | Apple Ally Oauth driver
 |--------------------------------------------------------------------------
 |
-| This is a Ally Oauth Driver fro Apple
+| This is a Ally Oauth Driver for Apple
 |
 */
 
