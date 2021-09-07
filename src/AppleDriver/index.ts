@@ -67,15 +67,15 @@ export type AppleTokenDecoded = {
 }
 
 /**
- * Extra options available for Apple
+ * Options available for Apple
+ * @param appId App ID of your app
  * @param teamId Team ID of your Apple Developer Account
- * @param keyId Key ID, received from https://developer.apple.com/account/resources/authkeys/list
- * @param key Private key, downloaded from https://developer.apple.com/account/resources/authkeys/list
+ * @param clientId Key ID, received from https://developer.apple.com/account/resources/authkeys/list
+ * @param clientSecret Private key, downloaded from https://developer.apple.com/account/resources/authkeys/list
  */
 export type AppleDriverConfig = {
   driver: 'apple'
-  key: string | Buffer
-  keyId: string
+  appId: string
   teamId: string
   clientId: string
   clientSecret: string
@@ -204,14 +204,14 @@ export class AppleDriver extends Oauth2Driver<AppleAccessToken, AppleScopes> {
    * @returns clientSecret
    */
   protected generateClientSecret(): string {
-    const clientSecret = JWT.sign({}, this.config.key, {
+    const clientSecret = JWT.sign({}, this.config.clientSecret, {
       algorithm: 'ES256',
-      keyid: this.config.keyId,
+      keyid: this.config.clientId,
       issuer: this.config.teamId,
       audience: 'https://appleid.apple.com',
-      subject: this.config.clientId,
+      subject: this.config.appId,
       expiresIn: 60,
-      header: { alg: 'ES256', kid: this.config.keyId },
+      header: { alg: 'ES256', kid: this.config.clientId },
     })
     return clientSecret
   }
@@ -223,7 +223,7 @@ export class AppleDriver extends Oauth2Driver<AppleAccessToken, AppleScopes> {
     const signingKey = await this.getAppleSigningKey(token)
     const decodedUser = JWT.verify(token, signingKey, {
       issuer: 'https://appleid.apple.com',
-      audience: this.config.clientId,
+      audience: this.config.appId,
     })
     const firstName = (decodedUser as AppleTokenDecoded)?.user?.name?.firstName || ''
     const lastName = (decodedUser as AppleTokenDecoded)?.user?.name?.lastName || ''
