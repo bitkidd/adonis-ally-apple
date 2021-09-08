@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "An Apple driver for Adonis.js Ally",
   "main": "build/providers/index.js",
+  "types": "build/standalone.d.ts",
   "files": [
     "build/src",
     "build/providers",
