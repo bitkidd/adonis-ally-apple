@@ -1,6 +1,6 @@
 {
   "name": "@bitkidd/adonis-ally-apple",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "An Apple driver for Adonis.js Ally",
   "main": "build/providers/index.js",
   "types": "build/standalone.d.ts",
