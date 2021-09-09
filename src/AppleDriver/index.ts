@@ -223,8 +223,8 @@ export class AppleDriver extends Oauth2Driver<AppleAccessToken, AppleScopes> {
   protected async getUserInfo(token: string): Promise<AppleUserContract> {
     const signingKey = await this.getAppleSigningKey(token)
     const decodedUser = JWT.verify(token, signingKey, {
-      issuer: this.config.teamId,
-      audience: 'https://appleid.apple.com',
+      issuer: 'https://appleid.apple.com',
+      audience: this.config.appId,
     })
     const firstName = (decodedUser as AppleTokenDecoded)?.user?.name?.firstName || ''
     const lastName = (decodedUser as AppleTokenDecoded)?.user?.name?.lastName || ''
