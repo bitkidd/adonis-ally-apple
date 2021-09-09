@@ -91,12 +91,12 @@ export class AppleDriver extends Oauth2Driver<AppleAccessToken, AppleScopes> {
    * The URL for the redirect request. The user will be redirected on this page
    * to authorize the request.
    */
-  protected authorizeUrl = 'https://appleid.apple.com/auth/token'
+  protected authorizeUrl = 'https://appleid.apple.com/auth/authorize'
 
   /**
    * The URL to hit to exchange the authorization code for the access token
    */
-  protected accessTokenUrl = 'https://appleid.apple.com/auth/authorize'
+  protected accessTokenUrl = 'https://appleid.apple.com/auth/token'
 
   /**
    * JWKS Client, it is used in Apple key verification process
@@ -174,6 +174,7 @@ export class AppleDriver extends Oauth2Driver<AppleAccessToken, AppleScopes> {
      */
     request.scopes(this.config.scopes || ['email'])
 
+    request.param('client_id', this.config.appId)
     request.param('response_type', 'code')
     request.param('response_mode', 'form_post')
     request.param('grant_type', 'authorization_code')
