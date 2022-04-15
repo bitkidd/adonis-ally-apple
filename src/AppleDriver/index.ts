@@ -264,6 +264,7 @@ export class AppleDriver extends Oauth2Driver<AppleAccessToken, AppleScopes> {
 
     return this.getAccessToken((request) => {
       request.header('Content-Type', 'application/x-www-form-urlencoded')
+      request.field('client_id', this.config.appId)
       request.field('client_secret', this.generateClientSecret())
       request.field(this.codeParamName, this.getCode())
 
